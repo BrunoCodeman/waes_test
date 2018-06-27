@@ -37,11 +37,11 @@ namespace Waes.Controllers
 
         [HttpPost]
         [Route("v1/[controller]/{id}/left")]
-        public ActionResult<bool> PostLeft([FromQuery] int id, [FromBody] Entity ent)    
+        public ActionResult PostLeft([FromQuery] int id, [FromBody] Entity ent)    
         {
             try
             {
-                return WaesService.SaveOrUpdate(ent);    
+                return Ok(WaesService.SaveOrUpdate(ent));    
             }
             catch (Exception ex)
             {
@@ -53,11 +53,11 @@ namespace Waes.Controllers
 
         [HttpPost]
         [Route("v1/[controller]/{id}/right")]
-        public ActionResult<bool> PostRight([FromQuery] int id, [FromBody] Entity ent)
+        public ActionResult PostRight([FromQuery] int id, [FromBody] Entity ent)
         {
             try
             {
-                return WaesService.SaveOrUpdate(ent);    
+                return Ok(WaesService.SaveOrUpdate(ent));    
             }
             catch (Exception ex)
             {

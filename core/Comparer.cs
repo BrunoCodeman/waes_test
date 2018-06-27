@@ -34,6 +34,11 @@ namespace Waes.Core
         /// <returns>A ComparerResult object with a return code 2 and a message saying how many differences are and where are they.</returns>
         private static ComparerResult CompareDiffs(string left, string right)
         {   
+            if(left == null || right == null)
+            {
+                throw new Exception("Both strings must have size");
+            }
+            
             Func<char,int,int> filter =(c,i) => { return c != right[i] ? i : -1;};
             var diff = left.Select(filter)
                             .Where(i => i > -1)

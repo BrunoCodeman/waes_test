@@ -17,18 +17,6 @@ namespace Waes.Tests
         const string sqlSelect = "SELECT * FROM ENTITIES LIMIT 1;";
         const string sqlCreate = 
             "CREATE TABLE \"Entities\" (\"Id\" INTEGER NOT NULL CONSTRAINT \"PK_Entities\" PRIMARY KEY,\"Left\" TEXT NULL,\"Right\" TEXT NULL);";
-      
-        private Entity _entity;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            var ctx = new WaesContext();
-            _entity = new Entity() { Id = new Random().Next(1, 10), Left = left, Right = right };
-            
-            ctx.Add(_entity);
-            ctx.SaveChanges();
-        }
 
         [SetUp]
         public void SetUp() => new WaesContext().Database.EnsureCreated();
@@ -39,59 +27,62 @@ namespace Waes.Tests
         [Test]
         public void ShouldSaveLeft()
         {
-            var e = _entity;
+            var e = new Entity(){ Id = 500, Left = left };
             e.Id = new Random().Next(20, 30);
             var ctrl = new DiffController();
-            var res = ctrl.PostLeft(e.Id, e).Value;
-            Assert.IsTrue(res);
+            var res = ctrl.PostLeft(e.Id, e) as OkObjectResult;
+            Assert.AreEqual(200, res.StatusCode);
         }
 
         [Test]
         public void ShouldSaveRight()
         {
-            var e = _entity;
+            var e = new Entity(){ Id = 600, Right = right };
             var ctrl = new DiffController();
-            var res = ctrl.PostRight(_entity.Id, _entity).Value;
-            Assert.IsTrue(res);
+            var res = ctrl.PostRight(e.Id, e) as OkObjectResult;
+            Assert.AreEqual(200, res.StatusCode);
         }
 
         [Test]
         public void ShouldNotSaveRight()
         {
-            var e = new Entity(){ Id = new Random().Next(30, 40)};
+            var e = new Entity(){ Id = 700};
             var ctrl = new DiffController();
-            var res = ctrl.PostRight(_entity.Id, _entity).Value;
-            Assert.IsFalse(res);
+            var res = ctrl.PostRight(e.Id, e) as BadRequestObjectResult;
+            Assert.AreEqual(400, res.StatusCode);
+            
         }
 
 
         [Test]
         public void ShouldNotSaveLeft()
         {
-            var e = _entity;
+            var e = new Entity(){ Id = 700};
             var ctrl = new DiffController();
-            var res = ctrl.PostLeft(_entity.Id, _entity).Value;
-            Assert.IsFalse(res);
+            var res = ctrl.PostLeft(e.Id, e) as BadRequestObjectResult;
+            Assert.AreEqual(400, res.StatusCode);
         }
 
 
         [Test]
         public void ShouldGetEntityLeft()
         {
-
+            var e = new Entity(){ Id = 800, Left = left};
             var controller = new DiffController();
-            ActionResult<string> res = controller.GetLeft(_entity.Id).Value;
-            Assert.AreEqual(_entity.Left, res);
+            controller.PostLeft(e.Id, e);
+            var res = controller.GetLeft(e.Id).Value;
+            Assert.AreEqual(e.Left, res);
             
         }
 
         [Test]
         public void ShouldGetEntityRight()
         {
-
+            var e = new Entity(){ Id = 800, Right = right };
             var controller = new DiffController();
-            var res = controller.GetRight(_entity.Id).Value;
-            Assert.AreEqual(_entity.Right, res);
+            controller.PostRight(e.Id, e);
+            var res = controller.GetRight(e.Id).Value;
+            Assert.AreEqual(e.Right, res);
             
         }
 

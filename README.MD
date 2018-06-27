@@ -33,5 +33,5 @@ POSTs to the first two listed above will create or update an entity with it's ri
 
 GETs to the first two listed above will return it's right or left part.
 
-A GET to the last URI listed above will return the differences between the strings.
+A GET to the last URI listed above will return data about the differences between the strings.
 

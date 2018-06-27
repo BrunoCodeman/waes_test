@@ -18,7 +18,7 @@ After cloning the repo if you just want to run the tests, go to .tests/ and run 
 
 If you want to run the API, just execute <i> dotnet run</i> on the main folder.
 
-How it works?
+How does it works?
 
 Expected JSON structure to create a comparison:
 

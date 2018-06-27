@@ -1,0 +1,7 @@
+{
+    "leftImage": "./assets/waes_logo.png",
+    "rightImage": "./assets/eindhoven_flag.jpg",
+    "status0": "Left and Right are exactly the same.",
+    "status1": "Left and Right has different sizes",
+    "status2" : "differences found on positions"
+}

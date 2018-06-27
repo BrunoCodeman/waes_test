@@ -24,7 +24,10 @@ Expected JSON structure to create a comparison:
 
 {Id: int, Left: string, Right: string}
 
-URIS: <b>/v1/diff/{id:int}/left</b>, <b>/v1/diff/{id:int}/right</b> and <b>/v1/diff/{id:int}/</b>
+URIS: 
+* <b>/v1/diff/{id:int}/left</b>, 
+* <b>/v1/diff/{id:int}/right</b> and 
+* <b>/v1/diff/{id:int}/</b>
 
 POSTs to the first two listed above will create or update an entity with it's right or left part.
 

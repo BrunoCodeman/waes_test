@@ -16,7 +16,7 @@
 
 After cloning the repo if you just want to run the tests, go to .tests/ and run <i> dotnet test</i>. 
 
-If you want to run the API, just execute <i> dotnet run</i> on the main folder.
+If you want to run the API, just execute <i>dotnet ef database update --project waes.csproj</i> and then <i> dotnet run</i> on the main folder.
 
 How does it works?
 
